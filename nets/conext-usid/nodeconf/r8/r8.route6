@@ -1,0 +1,34 @@
+fcf0:0:1:2::/64 nhid 26 via fe80::2847:3bff:fe70:e2d6 dev r8-r7 proto isis metric 20 pref medium
+fcf0:0:2:3::/64 nhid 26 via fe80::2847:3bff:fe70:e2d6 dev r8-r7 proto isis metric 20 pref medium
+fcf0:0:2:7::/64 nhid 26 via fe80::2847:3bff:fe70:e2d6 dev r8-r7 proto isis metric 20 pref medium
+fcf0:0:3:4::/64 nhid 22 via fe80::84a7:9dff:fe2d:1d7 dev r8-r6 proto isis metric 20 pref medium
+fcf0:0:4:5::/64 nhid 22 via fe80::84a7:9dff:fe2d:1d7 dev r8-r6 proto isis metric 20 pref medium
+fcf0:0:4:6::/64 nhid 22 via fe80::84a7:9dff:fe2d:1d7 dev r8-r6 proto isis metric 20 pref medium
+fcf0:0:5:6::/64 nhid 22 via fe80::84a7:9dff:fe2d:1d7 dev r8-r6 proto isis metric 20 pref medium
+fcf0:0:6:7::/64 nhid 27 proto isis metric 20 
+	nexthop via fe80::84a7:9dff:fe2d:1d7 dev r8-r6 weight 1 
+	nexthop via fe80::2847:3bff:fe70:e2d6 dev r8-r7 weight 1 pref medium
+fcf0:0:6:8::/64 dev r8-r6 proto kernel metric 256 pref medium
+fcf0:0:7:8::/64 dev r8-r7 proto kernel metric 256 pref medium
+fcff:1::/32 nhid 26 via fe80::2847:3bff:fe70:e2d6 dev r8-r7 proto isis metric 20 pref medium
+fcff:2:1::/48 nhid 26 via fe80::2847:3bff:fe70:e2d6 dev r8-r7 proto isis metric 20 pref medium
+fcff:2::/32 nhid 26 via fe80::2847:3bff:fe70:e2d6 dev r8-r7 proto isis metric 20 pref medium
+fcff:3::/32 nhid 27 proto isis metric 20 
+	nexthop via fe80::84a7:9dff:fe2d:1d7 dev r8-r6 weight 1 
+	nexthop via fe80::2847:3bff:fe70:e2d6 dev r8-r7 weight 1 pref medium
+fcff:4::/32 nhid 22 via fe80::84a7:9dff:fe2d:1d7 dev r8-r6 proto isis metric 20 pref medium
+fcff:5:1::/48 nhid 22 via fe80::84a7:9dff:fe2d:1d7 dev r8-r6 proto isis metric 20 pref medium
+fcff:5::/32 nhid 22 via fe80::84a7:9dff:fe2d:1d7 dev r8-r6 proto isis metric 20 pref medium
+fcff:6::/32 nhid 22 via fe80::84a7:9dff:fe2d:1d7 dev r8-r6 proto isis metric 20 pref medium
+fcff:7::/32 nhid 26 via fe80::2847:3bff:fe70:e2d6 dev r8-r7 proto isis metric 20 pref medium
+fcff:8:1::/48 dev r8-hdc2 proto kernel metric 256 pref medium
+fcff:8::/32 dev lo proto kernel metric 256 pref medium
+fd00:0:81::/64 dev r8-h81 proto kernel metric 256 pref medium
+fd00:0:82::/64 dev r8-h82 proto kernel metric 256 pref medium
+fd00:0:83::/64 dev r8-h83 proto kernel metric 256 pref medium
+fe80::/64 dev r8-r6 proto kernel metric 256 pref medium
+fe80::/64 dev r8-r7 proto kernel metric 256 pref medium
+fe80::/64 dev r8-h81 proto kernel metric 256 pref medium
+fe80::/64 dev r8-h82 proto kernel metric 256 pref medium
+fe80::/64 dev r8-h83 proto kernel metric 256 pref medium
+fe80::/64 dev r8-hdc2 proto kernel metric 256 pref medium

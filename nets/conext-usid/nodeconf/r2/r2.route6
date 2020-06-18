@@ -1,0 +1,31 @@
+fcf0:0:1:2::/64 dev r2-r1 proto kernel metric 256 pref medium
+fcf0:0:2:3::/64 dev r2-r3 proto kernel metric 256 pref medium
+fcf0:0:2:7::/64 dev r2-r7 proto kernel metric 256 pref medium
+fcf0:0:3:4::/64 nhid 18 via fe80::d05a:eff:fe02:d20f dev r2-r3 proto isis metric 20 pref medium
+fcf0:0:4:5::/64 nhid 18 via fe80::d05a:eff:fe02:d20f dev r2-r3 proto isis metric 20 pref medium
+fcf0:0:4:6::/64 nhid 25 proto isis metric 20 
+	nexthop via fe80::d05a:eff:fe02:d20f dev r2-r3 weight 1 
+	nexthop via fe80::6c16:f4ff:fe34:4d93 dev r2-r7 weight 1 pref medium
+fcf0:0:5:6::/64 nhid 26 via fe80::6c16:f4ff:fe34:4d93 dev r2-r7 proto isis metric 20 pref medium
+fcf0:0:6:7::/64 nhid 26 via fe80::6c16:f4ff:fe34:4d93 dev r2-r7 proto isis metric 20 pref medium
+fcf0:0:6:8::/64 nhid 26 via fe80::6c16:f4ff:fe34:4d93 dev r2-r7 proto isis metric 20 pref medium
+fcf0:0:7:8::/64 nhid 26 via fe80::6c16:f4ff:fe34:4d93 dev r2-r7 proto isis metric 20 pref medium
+fcff:1::/32 nhid 16 via fe80::5c7e:29ff:fe7b:5517 dev r2-r1 proto isis metric 20 pref medium
+fcff:2:1::/48 dev r2-hdc1 proto kernel metric 256 pref medium
+fcff:2::/32 dev lo proto kernel metric 256 pref medium
+fcff:3::/32 nhid 18 via fe80::d05a:eff:fe02:d20f dev r2-r3 proto isis metric 20 pref medium
+fcff:4::/32 nhid 18 via fe80::d05a:eff:fe02:d20f dev r2-r3 proto isis metric 20 pref medium
+fcff:5:1::/48 nhid 25 proto isis metric 20 
+	nexthop via fe80::d05a:eff:fe02:d20f dev r2-r3 weight 1 
+	nexthop via fe80::6c16:f4ff:fe34:4d93 dev r2-r7 weight 1 pref medium
+fcff:5::/32 nhid 25 proto isis metric 20 
+	nexthop via fe80::d05a:eff:fe02:d20f dev r2-r3 weight 1 
+	nexthop via fe80::6c16:f4ff:fe34:4d93 dev r2-r7 weight 1 pref medium
+fcff:6::/32 nhid 26 via fe80::6c16:f4ff:fe34:4d93 dev r2-r7 proto isis metric 20 pref medium
+fcff:7::/32 nhid 26 via fe80::6c16:f4ff:fe34:4d93 dev r2-r7 proto isis metric 20 pref medium
+fcff:8:1::/48 nhid 26 via fe80::6c16:f4ff:fe34:4d93 dev r2-r7 proto isis metric 20 pref medium
+fcff:8::/32 nhid 26 via fe80::6c16:f4ff:fe34:4d93 dev r2-r7 proto isis metric 20 pref medium
+fe80::/64 dev r2-r1 proto kernel metric 256 pref medium
+fe80::/64 dev r2-hdc1 proto kernel metric 256 pref medium
+fe80::/64 dev r2-r3 proto kernel metric 256 pref medium
+fe80::/64 dev r2-r7 proto kernel metric 256 pref medium

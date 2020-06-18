@@ -1,0 +1,40 @@
+fcf0:0:1:2::/64 nhid 26 proto isis metric 20 
+	nexthop via fe80::82d:eff:fed0:d116 dev r5-r4 weight 1 
+	nexthop via fe80::787c:9dff:feaf:c539 dev r5-r6 weight 1 pref medium
+fcf0:0:2:3::/64 nhid 22 via fe80::82d:eff:fed0:d116 dev r5-r4 proto isis metric 20 pref medium
+fcf0:0:2:7::/64 nhid 27 via fe80::787c:9dff:feaf:c539 dev r5-r6 proto isis metric 20 pref medium
+fcf0:0:3:4::/64 nhid 22 via fe80::82d:eff:fed0:d116 dev r5-r4 proto isis metric 20 pref medium
+fcf0:0:4:5::/64 dev r5-r4 proto kernel metric 256 pref medium
+fcf0:0:4:6::/64 nhid 26 proto isis metric 20 
+	nexthop via fe80::82d:eff:fed0:d116 dev r5-r4 weight 1 
+	nexthop via fe80::787c:9dff:feaf:c539 dev r5-r6 weight 1 pref medium
+fcf0:0:5:6::/64 dev r5-r6 proto kernel metric 256 pref medium
+fcf0:0:6:7::/64 nhid 27 via fe80::787c:9dff:feaf:c539 dev r5-r6 proto isis metric 20 pref medium
+fcf0:0:6:8::/64 nhid 27 via fe80::787c:9dff:feaf:c539 dev r5-r6 proto isis metric 20 pref medium
+fcf0:0:7:8::/64 nhid 27 via fe80::787c:9dff:feaf:c539 dev r5-r6 proto isis metric 20 pref medium
+fcff:1::/32 nhid 26 proto isis metric 20 
+	nexthop via fe80::82d:eff:fed0:d116 dev r5-r4 weight 1 
+	nexthop via fe80::787c:9dff:feaf:c539 dev r5-r6 weight 1 pref medium
+fcff:2:1::/48 nhid 26 proto isis metric 20 
+	nexthop via fe80::82d:eff:fed0:d116 dev r5-r4 weight 1 
+	nexthop via fe80::787c:9dff:feaf:c539 dev r5-r6 weight 1 pref medium
+fcff:2::/32 nhid 26 proto isis metric 20 
+	nexthop via fe80::82d:eff:fed0:d116 dev r5-r4 weight 1 
+	nexthop via fe80::787c:9dff:feaf:c539 dev r5-r6 weight 1 pref medium
+fcff:3::/32 nhid 22 via fe80::82d:eff:fed0:d116 dev r5-r4 proto isis metric 20 pref medium
+fcff:4::/32 nhid 22 via fe80::82d:eff:fed0:d116 dev r5-r4 proto isis metric 20 pref medium
+fcff:5:1::/48 dev r5-hdc3 proto kernel metric 256 pref medium
+fcff:5::/32 dev lo proto kernel metric 256 pref medium
+fcff:6::/32 nhid 27 via fe80::787c:9dff:feaf:c539 dev r5-r6 proto isis metric 20 pref medium
+fcff:7::/32 nhid 27 via fe80::787c:9dff:feaf:c539 dev r5-r6 proto isis metric 20 pref medium
+fcff:8:1::/48 nhid 27 via fe80::787c:9dff:feaf:c539 dev r5-r6 proto isis metric 20 pref medium
+fcff:8::/32 nhid 27 via fe80::787c:9dff:feaf:c539 dev r5-r6 proto isis metric 20 pref medium
+fd00:0:51::/64 dev r5-h51 proto kernel metric 256 pref medium
+fd00:0:52::/64 dev r5-h52 proto kernel metric 256 pref medium
+fd00:0:53::/64 dev r5-h53 proto kernel metric 256 pref medium
+fe80::/64 dev r5-r4 proto kernel metric 256 pref medium
+fe80::/64 dev r5-h51 proto kernel metric 256 pref medium
+fe80::/64 dev r5-h52 proto kernel metric 256 pref medium
+fe80::/64 dev r5-h53 proto kernel metric 256 pref medium
+fe80::/64 dev r5-hdc3 proto kernel metric 256 pref medium
+fe80::/64 dev r5-r6 proto kernel metric 256 pref medium

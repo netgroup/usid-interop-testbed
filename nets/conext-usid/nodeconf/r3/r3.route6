@@ -1,0 +1,35 @@
+fcf0:0:1:2::/64 nhid 19 via fe80::cc16:feff:fec4:2436 dev r3-r2 proto isis metric 20 pref medium
+fcf0:0:2:3::/64 dev r3-r2 proto kernel metric 256 pref medium
+fcf0:0:2:7::/64 nhid 19 via fe80::cc16:feff:fec4:2436 dev r3-r2 proto isis metric 20 pref medium
+fcf0:0:3:4::/64 dev r3-r4 proto kernel metric 256 pref medium
+fcf0:0:4:5::/64 nhid 21 via fe80::9055:cff:feeb:1ae4 dev r3-r4 proto isis metric 20 pref medium
+fcf0:0:4:6::/64 nhid 21 via fe80::9055:cff:feeb:1ae4 dev r3-r4 proto isis metric 20 pref medium
+fcf0:0:5:6::/64 nhid 21 via fe80::9055:cff:feeb:1ae4 dev r3-r4 proto isis metric 20 pref medium
+fcf0:0:6:7::/64 nhid 27 proto isis metric 20 
+	nexthop via fe80::cc16:feff:fec4:2436 dev r3-r2 weight 1 
+	nexthop via fe80::9055:cff:feeb:1ae4 dev r3-r4 weight 1 pref medium
+fcf0:0:6:8::/64 nhid 21 via fe80::9055:cff:feeb:1ae4 dev r3-r4 proto isis metric 20 pref medium
+fcf0:0:7:8::/64 nhid 19 via fe80::cc16:feff:fec4:2436 dev r3-r2 proto isis metric 20 pref medium
+fcff:1::/32 nhid 19 via fe80::cc16:feff:fec4:2436 dev r3-r2 proto isis metric 20 pref medium
+fcff:2:1::/48 nhid 19 via fe80::cc16:feff:fec4:2436 dev r3-r2 proto isis metric 20 pref medium
+fcff:2::/32 nhid 19 via fe80::cc16:feff:fec4:2436 dev r3-r2 proto isis metric 20 pref medium
+fcff:3::/32 dev lo proto kernel metric 256 pref medium
+fcff:4::/32 nhid 21 via fe80::9055:cff:feeb:1ae4 dev r3-r4 proto isis metric 20 pref medium
+fcff:5:1::/48 nhid 21 via fe80::9055:cff:feeb:1ae4 dev r3-r4 proto isis metric 20 pref medium
+fcff:5::/32 nhid 21 via fe80::9055:cff:feeb:1ae4 dev r3-r4 proto isis metric 20 pref medium
+fcff:6::/32 nhid 21 via fe80::9055:cff:feeb:1ae4 dev r3-r4 proto isis metric 20 pref medium
+fcff:7::/32 nhid 19 via fe80::cc16:feff:fec4:2436 dev r3-r2 proto isis metric 20 pref medium
+fcff:8:1::/48 nhid 27 proto isis metric 20 
+	nexthop via fe80::cc16:feff:fec4:2436 dev r3-r2 weight 1 
+	nexthop via fe80::9055:cff:feeb:1ae4 dev r3-r4 weight 1 pref medium
+fcff:8::/32 nhid 27 proto isis metric 20 
+	nexthop via fe80::cc16:feff:fec4:2436 dev r3-r2 weight 1 
+	nexthop via fe80::9055:cff:feeb:1ae4 dev r3-r4 weight 1 pref medium
+fd00:0:31::/64 dev r3-h31 proto kernel metric 256 pref medium
+fd00:0:32::/64 dev r3-h32 proto kernel metric 256 pref medium
+fd00:0:33::/64 dev r3-h33 proto kernel metric 256 pref medium
+fe80::/64 dev r3-r2 proto kernel metric 256 pref medium
+fe80::/64 dev r3-h31 proto kernel metric 256 pref medium
+fe80::/64 dev r3-h32 proto kernel metric 256 pref medium
+fe80::/64 dev r3-h33 proto kernel metric 256 pref medium
+fe80::/64 dev r3-r4 proto kernel metric 256 pref medium

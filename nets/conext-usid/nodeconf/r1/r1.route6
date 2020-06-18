@@ -1,0 +1,31 @@
+ip -6 route add fcf0:0:1:2::/64 dev r1-r2
+ip -6 route add fcf0:0:2:3::/64 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcf0:0:2:7::/64 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcf0:0:3:4::/64 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcf0:0:4:5::/64 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcf0:0:4:6::/64 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcf0:0:5:6::/64 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcf0:0:6:7::/64 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcf0:0:6:8::/64 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcf0:0:7:8::/64 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+
+ip -6 route add fcff:1::/32 dev lo proto kernel metric 256 pref medium
+ip -6 route add fcff:2:1::/48 nhid 16 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcff:2::/32 nhid 16 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcff:3::/32 nhid 16 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcff:4::/32 nhid 16 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcff:5:1::/48 nhid 16 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcff:5::/32 nhid 16 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcff:6::/32 nhid 16 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcff:7::/32 nhid 16 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcff:8:1::/48 nhid 16 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+ip -6 route add fcff:8::/32 nhid 16 via fe80::30af:77ff:fe4b:c291 dev r1-r2 proto isis metric 20 pref medium
+
+ip -6 route add fd00:0:11::/64 dev r1-h11 proto kernel metric 256 pref medium
+ip -6 route add fd00:0:12::/64 dev r1-h12 proto kernel metric 256 pref medium
+ip -6 route add fd00:0:13::/64 dev r1-h13 proto kernel metric 256 pref medium
+
+ip -6 route add fe80::/64 dev r1-h12 proto kernel metric 256 pref medium
+ip -6 route add fe80::/64 dev r1-h13 proto kernel metric 256 pref medium
+ip -6 route add fe80::/64 dev r1-r2 proto kernel metric 256 pref medium
+ip -6 route add fe80::/64 dev r1-h11 proto kernel metric 256 pref medium

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 NODE_NAME=hdc2
 GW_NAME=r8

@@ -1,0 +1,28 @@
+fcf0:0:1:2::/64 nhid 13 via fe80::88f4:e3ff:feb3:ec7 dev r4-r3 proto isis metric 20 pref medium
+fcf0:0:2:3::/64 nhid 13 via fe80::88f4:e3ff:feb3:ec7 dev r4-r3 proto isis metric 20 pref medium
+fcf0:0:2:7::/64 nhid 24 proto isis metric 20 
+	nexthop via fe80::88f4:e3ff:feb3:ec7 dev r4-r3 weight 1 
+	nexthop via fe80::2c07:38ff:fe0d:ed65 dev r4-r6 weight 1 pref medium
+fcf0:0:3:4::/64 dev r4-r3 proto kernel metric 256 pref medium
+fcf0:0:4:5::/64 dev r4-r5 proto kernel metric 256 pref medium
+fcf0:0:4:6::/64 dev r4-r6 proto kernel metric 256 pref medium
+fcf0:0:5:6::/64 nhid 19 proto isis metric 20 
+	nexthop via fe80::bc06:87ff:fe81:4378 dev r4-r5 weight 1 
+	nexthop via fe80::2c07:38ff:fe0d:ed65 dev r4-r6 weight 1 pref medium
+fcf0:0:6:7::/64 nhid 20 via fe80::2c07:38ff:fe0d:ed65 dev r4-r6 proto isis metric 20 pref medium
+fcf0:0:6:8::/64 nhid 20 via fe80::2c07:38ff:fe0d:ed65 dev r4-r6 proto isis metric 20 pref medium
+fcf0:0:7:8::/64 nhid 20 via fe80::2c07:38ff:fe0d:ed65 dev r4-r6 proto isis metric 20 pref medium
+fcff:1::/32 nhid 13 via fe80::88f4:e3ff:feb3:ec7 dev r4-r3 proto isis metric 20 pref medium
+fcff:2:1::/48 nhid 13 via fe80::88f4:e3ff:feb3:ec7 dev r4-r3 proto isis metric 20 pref medium
+fcff:2::/32 nhid 13 via fe80::88f4:e3ff:feb3:ec7 dev r4-r3 proto isis metric 20 pref medium
+fcff:3::/32 nhid 13 via fe80::88f4:e3ff:feb3:ec7 dev r4-r3 proto isis metric 20 pref medium
+fcff:4::/32 dev lo proto kernel metric 256 pref medium
+fcff:5:1::/48 nhid 15 via fe80::bc06:87ff:fe81:4378 dev r4-r5 proto isis metric 20 pref medium
+fcff:5::/32 nhid 15 via fe80::bc06:87ff:fe81:4378 dev r4-r5 proto isis metric 20 pref medium
+fcff:6::/32 nhid 20 via fe80::2c07:38ff:fe0d:ed65 dev r4-r6 proto isis metric 20 pref medium
+fcff:7::/32 nhid 20 via fe80::2c07:38ff:fe0d:ed65 dev r4-r6 proto isis metric 20 pref medium
+fcff:8:1::/48 nhid 20 via fe80::2c07:38ff:fe0d:ed65 dev r4-r6 proto isis metric 20 pref medium
+fcff:8::/32 nhid 20 via fe80::2c07:38ff:fe0d:ed65 dev r4-r6 proto isis metric 20 pref medium
+fe80::/64 dev r4-r3 proto kernel metric 256 pref medium
+fe80::/64 dev r4-r5 proto kernel metric 256 pref medium
+fe80::/64 dev r4-r6 proto kernel metric 256 pref medium
