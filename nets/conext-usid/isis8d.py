@@ -5,9 +5,8 @@ import os
 from argparse import ArgumentParser
 import python_hosts
 import shutil
-from dotenv import load_dotenv
 from mininet.topo import Topo
-from mininet.node import Host, OVSBridge
+from mininet.node import Host
 from mininet.net import Mininet
 from mininet.cli import CLI
 from mininet.util import dumpNodeConnections
@@ -26,21 +25,6 @@ ETC_HOSTS_FILE = './etc-hosts'
 
 # Define whether to add Mininet nodes to /etc/hosts file or not
 ADD_ETC_HOSTS = True
-
-# Define whether to start the node managers on the routers or not
-START_NODE_MANAGERS = False
-
-# Load environment variables from .env file
-load_dotenv()
-
-# Get node manager path
-NODE_MANAGER_PATH = os.getenv('NODE_MANAGER_PATH', None)
-if NODE_MANAGER_PATH is not None:
-    NODE_MANAGER_PATH = os.path.join(NODE_MANAGER_PATH,
-                                     'srv6_manager.py')
-# Get gRPC server port
-NODE_MANAGER_GRPC_PORT = os.getenv('NODE_MANAGER_GRPC_PORT', None)
-
 
 class BaseNode(Host):
 
@@ -112,51 +96,6 @@ class Router(BaseNode):
     def __init__(self, name, *args, **kwargs):
         BaseNode.__init__(self, name, *args, **kwargs)
 
-    def config(self, **kwargs):
-        # Init steps
-        BaseNode.config(self, **kwargs)
-        # Start node managers
-        if START_NODE_MANAGERS:
-            self.cmd('python %s --grpc-port %s &'
-                     % (NODE_MANAGER_PATH, NODE_MANAGER_GRPC_PORT))
-
-
-class Switch(OVSBridge):
-    def __init__(self, name, *args, **kwargs):
-        dirs = [PRIVDIR]
-        OVSBridge.__init__(self, name, *args, **kwargs)
-        self.dir = "/tmp/%s" % name
-        self.nets = []
-        if not os.path.exists(self.dir):
-            os.makedirs(self.dir) 
-
-    def config(self, **kwargs):
-        # Init steps
-        OVSBridge.config(self, **kwargs)
-        # Iterate over the interfaces
-        for intf in self.intfs.itervalues():
-            # Remove any configured address
-            self.cmd('ifconfig %s 0' %intf.name)
-            # # For the first one, let's configure the mgmt address
-            # if first:
-            #   first = False
-            #   self.cmd('ip a a %s dev %s' %(kwargs['mgmtip'], intf.name))
-        #let's write the hostname in /var/mininet/hostname
-        self.cmd("echo '" + self.name + "' > "+PRIVDIR+"/hostname")
-        if os.path.isfile(BASEDIR+self.name+"/start.sh") :
-            self.cmd('source %s' %BASEDIR+self.name+"/start.sh")
-
-    def cleanup(self):
-        def remove_if_exists (filename):
-            if os.path.exists(filename):
-                os.remove(filename)
-
-        OVSBridge.cleanup(self)
-        # Rm dir
-        if os.path.exists(self.dir):
-            shutil.rmtree(self.dir)
-
-
 # the add_link function creates a link and assigns the interface names
 # as node1-node2 and node2-node1
 def add_link (my_net, node1, node2):
@@ -184,17 +123,14 @@ def create_topo(my_net):
     hdc2 = my_net.addHost(name='hdc2', cls=BaseNode)
     hdc3 = my_net.addHost(name='hdc3', cls=BaseNode)
 
-    controller = my_net.addHost(name='controller', cls=BaseNode,
-                                sshd=False, inNamespace=False)
-
     r1 = my_net.addHost(name='r1', cls=Router)
     r2 = my_net.addHost(name='r2', cls=Router)
     r3 = my_net.addHost(name='r3', cls=Router)
-    r4 = my_net.addHost(name='vpp_1', cls=Router)
-    r5 = my_net.addHost(name='vpp_2', cls=Router)
-    r6 = my_net.addHost(name='p4_1', cls=Router)
-    r7 = my_net.addHost(name='p4_2', cls=Router)
-    r8 = my_net.addHost(name='vpp_3', cls=Router)
+    vpp_1 = my_net.addHost(name='vpp_1', cls=Router)
+    vpp_2 = my_net.addHost(name='vpp_2', cls=Router)
+    p4_1 = my_net.addHost(name='p4_1', cls=Router)
+    p4_2 = my_net.addHost(name='p4_2', cls=Router)
+    vpp_3 = my_net.addHost(name='vpp_3', cls=Router)
 
     #note that if the interface names are not provided,
     #the order of adding link will determine the
@@ -214,52 +150,38 @@ def create_topo(my_net):
     add_link(my_net, hdc1,r2)
     #r2 - r3
     add_link(my_net, r2,r3)
-    #r2 - r7
-    add_link(my_net, r2,r7)
+    #r2 - p4_2
+    add_link(my_net, r2,p4_2)
     #hosts of r3
     add_link(my_net, h31,r3)
     add_link(my_net, h32,r3)
     add_link(my_net, h33,r3)
-    #r3 - r4
-    add_link(my_net, r3,r4)
-    #r4 - r5
-    add_link(my_net, r4,r5)
-    #r4 - r6
-    add_link(my_net, r4,r6)
-    #hosts of r5
-    add_link(my_net, h51,r5)
-    add_link(my_net, h52,r5)
-    add_link(my_net, h53,r5)
-    #datacenters of r5
-    add_link(my_net, hdc3,r5)
-    #r5 - r6
-    add_link(my_net, r5,r6)
-    #r6 - r7
-    add_link(my_net, r6,r7)
-    #r6 - r8
-    add_link(my_net, r6,r8)
-    #r7 - r8
-    add_link(my_net, r7,r8)
-    #hosts of r8
-    add_link(my_net, h81,r8)
-    add_link(my_net, h82,r8)
-    add_link(my_net, h83,r8)
-    #datacenters of r8
-    add_link(my_net, hdc2,r8)
-
-    # Create the mgmt switch
-    sw = my_net.addSwitch(name='sw', cls=Switch, dpid='1')
-    # Create a link between mgmt switch and controller
-    add_link(my_net, controller, sw)
-    # Connect all the routers to the management network
-    add_link(my_net, r1, sw)
-    add_link(my_net, r2, sw)
-    add_link(my_net, r3, sw)
-    add_link(my_net, r4, sw)
-    add_link(my_net, r5, sw)
-    add_link(my_net, r6, sw)
-    add_link(my_net, r7, sw)
-    add_link(my_net, r8, sw)
+    #r3 - vpp_1
+    add_link(my_net, r3,vpp_1)
+    #vpp_1 - vpp_2
+    add_link(my_net, vpp_1,vpp_2)
+    #vpp_1 - p4_1
+    add_link(my_net, vpp_1,p4_1)
+    #hosts of vpp_2
+    add_link(my_net, h51,vpp_2)
+    add_link(my_net, h52,vpp_2)
+    add_link(my_net, h53,vpp_2)
+    #datacenters of vpp_2
+    add_link(my_net, hdc3,vpp_2)
+    #vpp_2 - p4_1
+    add_link(my_net, vpp_2,p4_1)
+    #p4_1 - p4_2
+    add_link(my_net, p4_1,p4_2)
+    #p4_1 - vpp_3
+    add_link(my_net, p4_1,vpp_3)
+    #p4_2 - vpp_3
+    add_link(my_net, p4_2,vpp_3)
+    #hosts of vpp_3
+    add_link(my_net, h81,vpp_3)
+    add_link(my_net, h82,vpp_3)
+    add_link(my_net, h83,vpp_3)
+    #datacenters of vpp_3
+    add_link(my_net, hdc2,vpp_3)
 
 
 def add_nodes_to_etc_hosts():
@@ -279,11 +201,6 @@ def remove_nodes_from_etc_hosts(net):
     for host in net.hosts:
         # Remove all the nodes from /etc/hosts
         etc_hosts.remove_all_matching(name=str(host))
-    # Remove entries related to the management network
-    # These entries are in the form *.m (e.g. r1.m, controller.m)
-    # therefore they are not removed during the previous loop
-    for host in net.hosts:
-        etc_hosts.remove_all_matching(name='%s.m' % host)
     # Write changes to /etc/hosts
     etc_hosts.write()
 
@@ -342,11 +259,6 @@ def parse_arguments():
                     'IS-IS, 1 controller out-of-band'
     )
     parser.add_argument(
-        '--start-node-managers', dest='start_node_managers',
-        action='store_true', default=False,
-        help='Define whether to start node manager on routers or not'
-    )
-    parser.add_argument(
         '--no-etc-hosts', dest='add_etc_hosts',
         action='store_false', default=True,
         help='Define whether to add Mininet nodes to /etc/hosts file or not'
@@ -357,28 +269,10 @@ def parse_arguments():
     return args
 
 
+
 if __name__ == '__main__':
     # Parse command-line arguments
     args = parse_arguments()
-    # Define whether to start node manager on routers or not 
-    START_NODE_MANAGERS = args.start_node_managers
-    if START_NODE_MANAGERS:
-        if NODE_MANAGER_PATH is None:
-            print('Error: --start-node-managers requires NODE_MANAGER_PATH '
-                'variable')
-            print('NODE_MANAGER_PATH variable not set in .env file\n')
-            exit(-2)
-        if not os.path.exists(NODE_MANAGER_PATH):
-            print('Error: --start-node-managers requires NODE_MANAGER_PATH '
-                'variable')
-            print('NODE_MANAGER_PATH defined in .env file '
-                  'points to a non existing folder\n')
-            exit(-2)
-        if NODE_MANAGER_GRPC_PORT is None:
-            print('Error: --start-node-managers requires '
-                  'NODE_MANAGER_GRPC_PORT variable')
-            print('NODE_MANAGER_GRPC_PORT variable not set in .env file\n')
-            exit(-2)
     # Define whether to add Mininet nodes to /etc/hosts file or not
     ADD_ETC_HOSTS = args.add_etc_hosts
     # Tell mininet to print useful information

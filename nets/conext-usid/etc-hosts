@@ -4,11 +4,11 @@
 fcff:1::1       r1
 fcff:2::1       r2
 fcff:3::1       r3
-fcff:4::1       r4
-fcff:5::1       r5
-fcff:6::1       r6
-fcff:7::1       r7
-fcff:8::1       r8
+fcff:4::1       vpp_1
+fcff:5::1       vpp_2
+fcff:6::1       p4_1
+fcff:7::1       p4_2
+fcff:8::1       vpp_3
 
 # Hosts
 fd00:0:11::2    h11
@@ -28,14 +28,3 @@ fd00:0:83::2    h83
 fcff:2:1::2     hdc1
 fcff:8:1::2     hdc2
 fcff:5:1::2     hdc3
-
-# Management network
-fcfd:0:0:fd::1	controller.m
-fcfd:0:0:1::1	r1.m
-fcfd:0:0:2::1	r2.m
-fcfd:0:0:3::1	r3.m
-fcfd:0:0:4::1	r4.m
-fcfd:0:0:5::1	r5.m
-fcfd:0:0:6::1	r6.m
-fcfd:0:0:7::1	r7.m
-fcfd:0:0:8::1	r8.m

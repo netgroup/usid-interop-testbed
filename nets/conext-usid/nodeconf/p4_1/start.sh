@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BASE_DIR=nodeconf
-NODE_NAME=r6
+NODE_NAME=p4_1
 FRR_PATH=/usr/lib/frr
 
 #enable IPv4 forwarding

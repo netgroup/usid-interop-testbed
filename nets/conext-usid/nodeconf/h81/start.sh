@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NODE_NAME=h81
-GW_NAME=r8
+GW_NAME=vpp_3
 IF_NAME=$NODE_NAME-$GW_NAME
 IP_ADDR=fd00:0:81::2/64
 GW_ADDR=fd00:0:81::1
