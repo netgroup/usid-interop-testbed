@@ -190,11 +190,11 @@ def create_topo(my_net):
     r1 = my_net.addHost(name='r1', cls=Router)
     r2 = my_net.addHost(name='r2', cls=Router)
     r3 = my_net.addHost(name='r3', cls=Router)
-    r4 = my_net.addHost(name='vpp_1', cls=Router)
-    r5 = my_net.addHost(name='vpp_2', cls=Router)
-    r6 = my_net.addHost(name='p4_1', cls=Router)
-    r7 = my_net.addHost(name='p4_2', cls=Router)
-    r8 = my_net.addHost(name='vpp_3', cls=Router)
+    vpp_1 = my_net.addHost(name='vpp_1', cls=Router)
+    vpp_2 = my_net.addHost(name='vpp_2', cls=Router)
+    p4_2 = my_net.addHost(name='p4_2', cls=Router)
+    p4_1 = my_net.addHost(name='p4_1', cls=Router)
+    vpp_3 = my_net.addHost(name='vpp_3', cls=Router)
 
     #note that if the interface names are not provided,
     #the order of adding link will determine the
@@ -214,38 +214,38 @@ def create_topo(my_net):
     add_link(my_net, hdc1,r2)
     #r2 - r3
     add_link(my_net, r2,r3)
-    #r2 - r7
-    add_link(my_net, r2,r7)
+    #r2 - p4_1
+    add_link(my_net, r2,p4_1)
     #hosts of r3
     add_link(my_net, h31,r3)
     add_link(my_net, h32,r3)
     add_link(my_net, h33,r3)
-    #r3 - r4
-    add_link(my_net, r3,r4)
-    #r4 - r5
-    add_link(my_net, r4,r5)
-    #r4 - r6
-    add_link(my_net, r4,r6)
-    #hosts of r5
-    add_link(my_net, h51,r5)
-    add_link(my_net, h52,r5)
-    add_link(my_net, h53,r5)
-    #datacenters of r5
-    add_link(my_net, hdc3,r5)
-    #r5 - r6
-    add_link(my_net, r5,r6)
-    #r6 - r7
-    add_link(my_net, r6,r7)
-    #r6 - r8
-    add_link(my_net, r6,r8)
-    #r7 - r8
-    add_link(my_net, r7,r8)
-    #hosts of r8
-    add_link(my_net, h81,r8)
-    add_link(my_net, h82,r8)
-    add_link(my_net, h83,r8)
-    #datacenters of r8
-    add_link(my_net, hdc2,r8)
+    #r3 - vpp_1
+    add_link(my_net, r3,vpp_1)
+    #vpp_1 - vpp_2
+    add_link(my_net, vpp_1,vpp_2)
+    #vpp_1 - p4_2
+    add_link(my_net, vpp_1,p4_2)
+    #hosts of vpp_2
+    add_link(my_net, h51,vpp_2)
+    add_link(my_net, h52,vpp_2)
+    add_link(my_net, h53,vpp_2)
+    #datacenters of vpp_2
+    add_link(my_net, hdc3,vpp_2)
+    #vpp_2 - p4_2
+    add_link(my_net, vpp_2,p4_2)
+    #p4_2 - p4_1
+    add_link(my_net, p4_2,p4_1)
+    #p4_2 - vpp_3
+    add_link(my_net, p4_2,vpp_3)
+    #p4_1 - vpp_3
+    add_link(my_net, p4_1,vpp_3)
+    #hosts of vpp_3
+    add_link(my_net, h81,vpp_3)
+    add_link(my_net, h82,vpp_3)
+    add_link(my_net, h83,vpp_3)
+    #datacenters of vpp_3
+    add_link(my_net, hdc2,vpp_3)
 
     # Create the mgmt switch
     sw = my_net.addSwitch(name='sw', cls=Switch, dpid='1')
@@ -255,11 +255,28 @@ def create_topo(my_net):
     add_link(my_net, r1, sw)
     add_link(my_net, r2, sw)
     add_link(my_net, r3, sw)
-    add_link(my_net, r4, sw)
-    add_link(my_net, r5, sw)
-    add_link(my_net, r6, sw)
-    add_link(my_net, r7, sw)
-    add_link(my_net, r8, sw)
+    add_link(my_net, vpp_1, sw)
+    add_link(my_net, vpp_2, sw)
+    add_link(my_net, p4_2, sw)
+    add_link(my_net, p4_1, sw)
+    add_link(my_net, vpp_3, sw)
+
+    p4_1_cmd = "R2_MAC=" + r2.MAC('r2-p4_1') + \
+                "\nP4_2_MAC=" + p4_2.MAC('p4_2-p4_1') + \
+                "\nVPP_3_MAC=" + vpp_3.MAC('vpp_3-p4_1') + "\n"
+
+    p4_2_cmd = "P4_1_MAC=" + p4_1.MAC('p4_1-p4_2') + \
+                "\nVPP_1_MAC=" + vpp_1.MAC('vpp_1-p4_2') + \
+                "\nVPP_2_MAC=" + vpp_2.MAC('vpp_2-p4_2') + \
+                "\nVPP_3_MAC=" + vpp_3.MAC('vpp_3-p4_2') + "\n"
+
+    f_p4_1 = open(BASEDIR+"p4_1/neighbor_lladdr.txt", "w")
+    f_p4_1.write(p4_1_cmd)
+    f_p4_1.close()
+
+    f_p4_2 = open(BASEDIR+"p4_2/neighbor_lladdr.txt", "w")
+    f_p4_2.write(p4_2_cmd)
+    f_p4_2.close()
 
 
 def add_nodes_to_etc_hosts():
@@ -330,6 +347,8 @@ def simpleTest():
     # Remove Mininet nodes from /etc/hosts
     if ADD_ETC_HOSTS:
         remove_nodes_from_etc_hosts(net)
+
+    os.system("rm "+BASEDIR+"p4_1/neighbor_lladdr.txt "+BASEDIR+"p4_2/neighbor_lladdr.txt")
 
     net.stop() 
     stopAll()
