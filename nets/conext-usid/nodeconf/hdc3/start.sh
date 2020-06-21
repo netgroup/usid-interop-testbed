@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NODE_NAME=hdc3
-GW_NAME=r5
+GW_NAME=vpp_2
 IF_NAME=$NODE_NAME-$GW_NAME
 IP_ADDR=fcff:5:1::2/48
 GW_ADDR=fcff:5:1::1
