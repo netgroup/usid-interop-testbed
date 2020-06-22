@@ -183,20 +183,6 @@ def create_topo(my_net):
     #datacenters of vpp_3
     add_link(my_net, hdc2,vpp_3)
 
-    # Create the mgmt switch
-    sw = my_net.addSwitch(name='sw', cls=Switch, dpid='1')
-    # Create a link between mgmt switch and controller
-    add_link(my_net, controller, sw)
-    # Connect all the routers to the management network
-    add_link(my_net, r1, sw)
-    add_link(my_net, r2, sw)
-    add_link(my_net, r3, sw)
-    add_link(my_net, vpp_1, sw)
-    add_link(my_net, vpp_2, sw)
-    add_link(my_net, p4_2, sw)
-    add_link(my_net, p4_1, sw)
-    add_link(my_net, vpp_3, sw)
-
     p4_1_cmd = "R2_MAC=" + r2.MAC('r2-p4_1') + \
                 "\nP4_2_MAC=" + p4_2.MAC('p4_2-p4_1') + \
                 "\nVPP_3_MAC=" + vpp_3.MAC('vpp_3-p4_1') + "\n"
