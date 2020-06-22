@@ -103,25 +103,25 @@ def add_link (my_net, node1, node2):
                        intfName2=node2.name+'-'+node1.name)
 
 def create_topo(my_net):
-    h11 = my_net.addHost(name='h11', cls=BaseNode)
-    h12 = my_net.addHost(name='h12', cls=BaseNode)
-    h13 = my_net.addHost(name='h13', cls=BaseNode)
+    h11 = my_net.addHost(name='h11', cls=BaseNode, mac="1a:d4:2c:10:c3:0e")
+    h12 = my_net.addHost(name='h12', cls=BaseNode, mac="da:5a:ac:99:36:1a")
+    h13 = my_net.addHost(name='h13', cls=BaseNode, mac="72:23:e6:72:5c:c1")
 
-    h31 = my_net.addHost(name='h31', cls=BaseNode)
-    h32 = my_net.addHost(name='h32', cls=BaseNode)
-    h33 = my_net.addHost(name='h33', cls=BaseNode)
+    h31 = my_net.addHost(name='h31', cls=BaseNode, mac="9e:48:e5:e9:eb:c5")
+    h32 = my_net.addHost(name='h32', cls=BaseNode, mac="0a:46:e7:d7:26:1e")
+    h33 = my_net.addHost(name='h33', cls=BaseNode, mac="26:42:d3:96:be:4c")
 
-    h51 = my_net.addHost(name='h51', cls=BaseNode)
-    h52 = my_net.addHost(name='h52', cls=BaseNode)
-    h53 = my_net.addHost(name='h53', cls=BaseNode)
+    h51 = my_net.addHost(name='h51', cls=BaseNode, mac="ee:f2:1e:4d:48:ab")
+    h52 = my_net.addHost(name='h52', cls=BaseNode, mac="ee:63:94:3f:36:e4")
+    h53 = my_net.addHost(name='h53', cls=BaseNode, mac="ee:97:e5:5e:0b:d2")
 
-    h81 = my_net.addHost(name='h81', cls=BaseNode)
-    h82 = my_net.addHost(name='h82', cls=BaseNode)
-    h83 = my_net.addHost(name='h83', cls=BaseNode)
+    h81 = my_net.addHost(name='h81', cls=BaseNode, mac="06:83:41:94:b5:98")
+    h82 = my_net.addHost(name='h82', cls=BaseNode, mac="72:30:b4:d8:c9:bd")
+    h83 = my_net.addHost(name='h83', cls=BaseNode, mac="c2:bc:7a:4a:f7:a6")
 
-    hdc1 = my_net.addHost(name='hdc1', cls=BaseNode)
-    hdc2 = my_net.addHost(name='hdc2', cls=BaseNode)
-    hdc3 = my_net.addHost(name='hdc3', cls=BaseNode)
+    hdc1 = my_net.addHost(name='hdc1', cls=BaseNode, mac="be:99:4d:64:a5:ca")
+    hdc2 = my_net.addHost(name='hdc2', cls=BaseNode, mac="ae:ce:2e:85:98:9d")
+    hdc3 = my_net.addHost(name='hdc3', cls=BaseNode, mac="5e:69:e1:72:fc:ec")
 
     r1 = my_net.addHost(name='r1', cls=Router)
     r2 = my_net.addHost(name='r2', cls=Router)
@@ -182,6 +182,16 @@ def create_topo(my_net):
     add_link(my_net, h83,vpp_3)
     #datacenters of vpp_3
     add_link(my_net, hdc2,vpp_3)
+
+
+    r1.cmd("source " + BASEDIR+"r1/ip-link.conf")
+    r2.cmd("source " + BASEDIR+"r2/ip-link.conf")
+    r3.cmd("source " + BASEDIR+"r3/ip-link.conf")
+    vpp_1.cmd("source " + BASEDIR+"vpp_1/ip-link.conf")
+    vpp_2.cmd("source " + BASEDIR+"vpp_2/ip-link.conf")
+    p4_1.cmd("source " + BASEDIR+"p4_1/ip-link.conf")
+    p4_2.cmd("source " + BASEDIR+"p4_2/ip-link.conf")
+    vpp_3.cmd("source " + BASEDIR+"vpp_3/ip-link.conf")
 
 
 def add_nodes_to_etc_hosts():
