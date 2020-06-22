@@ -6,8 +6,8 @@ fcff:2::1       r2
 fcff:3::1       r3
 fcff:4::1       vpp_1
 fcff:5::1       vpp_2
-fcff:6::1       p4_1
-fcff:7::1       p4_2
+fcff:6::1       p4_2
+fcff:7::1       p4_1
 fcff:8::1       vpp_3
 
 # Hosts
