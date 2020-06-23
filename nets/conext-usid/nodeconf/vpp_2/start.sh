@@ -15,18 +15,24 @@ sysctl -w net.ipv6.conf.all.forwarding=1
 #  echo 0 > $i 
 #done
 
+ROUTING="static"
 
-#echo "no service integrated-vtysh-config" >> /etc/frr/vtysh.conf
-#chown frr:frrvty $BASE_DIR/$NODE_NAME
-#chown quagga:quagga $BASE_DIR/$NODE_NAME
+if [ $ROUTING == "isis" ]; then
+	echo "no service integrated-vtysh-config" >> /etc/frr/vtysh.conf
+	chown frr:frrvty $BASE_DIR/$NODE_NAME
 
-source $BASE_DIR/$NODE_NAME/ip-addr.conf
-#$FRR_PATH/zebra -f $PWD/$BASE_DIR/$NODE_NAME/zebra.conf -d -z $PWD/$BASE_DIR/$NODE_NAME/zebra.sock -i $PWD/$BASE_DIR/$NODE_NAME/zebra.pid
+	$FRR_PATH/zebra -f $PWD/$BASE_DIR/$NODE_NAME/zebra.conf -d -z $PWD/$BASE_DIR/$NODE_NAME/zebra.sock -i $PWD/$BASE_DIR/$NODE_NAME/zebra.pid
 
-sleep 1
+	sleep 1
 
-source $BASE_DIR/$NODE_NAME/ip-route.conf
-#$FRR_PATH/isisd -f $PWD/$BASE_DIR/$NODE_NAME/isisd.conf -d -z $PWD/$BASE_DIR/$NODE_NAME/zebra.sock -i $PWD/$BASE_DIR/$NODE_NAME/isisd.pid
+	$FRR_PATH/isisd -f $PWD/$BASE_DIR/$NODE_NAME/isisd.conf -d -z $PWD/$BASE_DIR/$NODE_NAME/zebra.sock -i $PWD/$BASE_DIR/$NODE_NAME/isisd.pid
+else
+	source $BASE_DIR/$NODE_NAME/ip-addr.conf
+
+	sleep 1
+
+	source $BASE_DIR/$NODE_NAME/ip-route.conf
+fi
 
 # enable Segment Routing for IPv6
 sysctl -w net.ipv6.conf.all.seg6_enabled=1
