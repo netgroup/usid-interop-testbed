@@ -10,4 +10,5 @@ cd nnpy
 git checkout c7e718a5173447c85182dc45f99e2abcf9cd4065
 sudo pip install cffi
 sudo pip install .
+sudo pip install ipaddr
 cd ..
