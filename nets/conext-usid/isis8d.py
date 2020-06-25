@@ -183,24 +183,6 @@ def create_topo(my_net):
     #datacenters of vpp_3
     add_link(my_net, hdc2,vpp_3)
 
-    p4_1_cmd = "R2_MAC=" + r2.MAC('r2-p4_1') + \
-                "\nP4_2_MAC=" + p4_2.MAC('p4_2-p4_1') + \
-                "\nVPP_3_MAC=" + vpp_3.MAC('vpp_3-p4_1') + "\n"
-
-    p4_2_cmd = "P4_1_MAC=" + p4_1.MAC('p4_1-p4_2') + \
-                "\nVPP_1_MAC=" + vpp_1.MAC('vpp_1-p4_2') + \
-                "\nVPP_2_MAC=" + vpp_2.MAC('vpp_2-p4_2') + \
-                "\nVPP_3_MAC=" + vpp_3.MAC('vpp_3-p4_2') + "\n"
-
-    f_p4_1 = open(BASEDIR+"p4_1/neighbor_lladdr.txt", "w")
-    f_p4_1.write(p4_1_cmd)
-    f_p4_1.close()
-
-    f_p4_2 = open(BASEDIR+"p4_2/neighbor_lladdr.txt", "w")
-    f_p4_2.write(p4_2_cmd)
-    f_p4_2.close()
-
-
     r1.cmd("source " + BASEDIR+"r1/ip-link.conf")
     r2.cmd("source " + BASEDIR+"r2/ip-link.conf")
     r3.cmd("source " + BASEDIR+"r3/ip-link.conf")
@@ -274,8 +256,6 @@ def simpleTest():
     # Remove Mininet nodes from /etc/hosts
     if ADD_ETC_HOSTS:
         remove_nodes_from_etc_hosts(net)
-
-    os.system("rm "+BASEDIR+"p4_1/neighbor_lladdr.txt "+BASEDIR+"p4_2/neighbor_lladdr.txt")
 
     net.stop() 
     stopAll()
