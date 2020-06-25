@@ -1,0 +1,36 @@
+# p4_1 ports MAC addresses
+table_add IngressPipeImpl.l2_firewall NoAction 8a:78:53:58:74:9c 0
+table_add IngressPipeImpl.l2_firewall NoAction ae:a1:d8:69:df:97 0
+table_add IngressPipeImpl.l2_firewall NoAction ea:e4:86:23:a8:5c 0
+
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcf0:0:1:2::/64 => d2:8e:4f:23:63:59
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcf0:0:2:3::/64 => d2:8e:4f:23:63:59 
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcf0:0:2:7::/64 => d2:8e:4f:23:63:59
+# or 36:46:f5:ac:37:db
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcf0:0:3:4::/64 => d2:8e:4f:23:63:59 
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcf0:0:4:5::/64 => 36:46:f5:ac:37:db
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcf0:0:4:6::/64 => 36:46:f5:ac:37:db
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcf0:0:5:6::/64 => 36:46:f5:ac:37:db
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcf0:0:6:7::/64 => 36:46:f5:ac:37:db 
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcf0:0:6:8::/64 => 36:46:f5:ac:37:db 
+# or 8e:af:a4:9c:78:e0
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcf0:0:7:8::/64 => 8e:af:a4:9c:78:e0 
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:1::/32     => d2:8e:4f:23:63:59 
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:2:1::/48   => d2:8e:4f:23:63:59 
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:2::/32     => d2:8e:4f:23:63:59 
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:3::/32     => d2:8e:4f:23:63:59 
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:4::/32     => 36:46:f5:ac:37:db
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:5:1::/48   => 36:46:f5:ac:37:db
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:5::/32     => 36:46:f5:ac:37:db
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:6::/32     => 36:46:f5:ac:37:db
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:8:1::/48   => 8e:af:a4:9c:78:e0
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:8::/32     => 8e:af:a4:9c:78:e0
+
+# table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:7::/32 LOOPBACK
+
+table_add IngressPipeImpl.my_sid_table IngressPipeImpl.end_action_usid fcbb:bbbb:0700::/48 0
+table_add IngressPipeImpl.my_sid_table IngressPipeImpl.end_action 	   fcbb:bbbb:0700:0000::/64 0
+
+table_add IngressPipeImpl.unicast IngressPipeImpl.set_output_port 8e:af:a4:9c:78:e0 => 2
+table_add IngressPipeImpl.unicast IngressPipeImpl.set_output_port 36:46:f5:ac:37:db => 1
+table_add IngressPipeImpl.unicast IngressPipeImpl.set_output_port d2:8e:4f:23:63:59 => 0
