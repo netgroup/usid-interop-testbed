@@ -28,6 +28,14 @@ table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:7::/32   
 table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:8:1::/48   => ae:a1:d8:69:df:97 
 table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:8::/32     => ae:a1:d8:69:df:97
 
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0100::/48 => ae:a1:d8:69:df:97 
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0200::/48 => ae:a1:d8:69:df:97 
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0300::/48 => 12:66:88:f8:f7:40
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0400::/48 => 12:66:88:f8:f7:40
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0500::/48 => 7e:1f:c9:cf:50:d8
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0700::/48 => ae:a1:d8:69:df:97
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0800::/48 => 52:44:29:3d:66:83
+
 # my SID and uSID
 table_add IngressPipeImpl.my_sid_table IngressPipeImpl.end_action_usid fcbb:bbbb:0600::/48 0
 table_add IngressPipeImpl.my_sid_table IngressPipeImpl.end_action 	   fcbb:bbbb:0600:0000::/64 0
