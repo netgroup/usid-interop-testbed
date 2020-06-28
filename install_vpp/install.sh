@@ -9,4 +9,6 @@ sudo make install-ext-dep
 sudo make pkg-deb
 sudo dpkg -i build-root/*.deb
 cd ..
+mkdir vpp-deb
+cp vpp/build-root/*.deb vpp-deb
 sudo rm -r vpp
