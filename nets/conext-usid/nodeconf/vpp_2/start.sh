@@ -12,7 +12,7 @@ sysctl -w net.ipv6.conf.all.forwarding=1
 #sysctl -w net.ipv4.conf.default.rp_filter=0
 #the following for loop also disables all and default
 #for i in /proc/sys/net/ipv4/conf/*/rp_filter ; do
-#  echo 0 > $i 
+#  echo 0 > $i
 #done
 
 ROUTING="static"
@@ -27,6 +27,8 @@ if [ $ROUTING == "isis" ]; then
 
 	$FRR_PATH/isisd -f $PWD/$BASE_DIR/$NODE_NAME/isisd.conf -d -z $PWD/$BASE_DIR/$NODE_NAME/zebra.sock -i $PWD/$BASE_DIR/$NODE_NAME/isisd.pid
 else
+	source $BASE_DIR/$NODE_NAME/ip-link.conf
+        source $BASE_DIR/$NODE_NAME/ip-neigh.conf
 	source $BASE_DIR/$NODE_NAME/ip-addr.conf
 
 	sleep 1
