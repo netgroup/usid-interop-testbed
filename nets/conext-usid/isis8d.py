@@ -218,7 +218,7 @@ def stopAll():
     # Clean Mininet emulation environment
     os.system('sudo mn -c')
     # Kill all the started daemons
-    os.system('sudo killall sshd zebra isisd simple_switch')
+    os.system('sudo killall sshd zebra isisd simple_switch vpp')
 
 def extractHostPid (dumpline):
     temp = dumpline[dumpline.find('pid=')+4:]
