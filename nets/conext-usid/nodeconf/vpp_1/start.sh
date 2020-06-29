@@ -27,6 +27,8 @@ if [ $ROUTING == "isis" ]; then
 
 	$FRR_PATH/isisd -f $PWD/$BASE_DIR/$NODE_NAME/isisd.conf -d -z $PWD/$BASE_DIR/$NODE_NAME/zebra.sock -i $PWD/$BASE_DIR/$NODE_NAME/isisd.pid
 else
+	source $BASE_DIR/$NODE_NAME/ip-link.conf
+        source $BASE_DIR/$NODE_NAME/ip-neigh.conf
 	source $BASE_DIR/$NODE_NAME/ip-addr.conf
 
 	sleep 1
