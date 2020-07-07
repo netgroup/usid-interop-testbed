@@ -186,11 +186,8 @@ def create_topo(my_net):
     r1.cmd("source " + BASEDIR+"r1/ip-link.conf")
     r2.cmd("source " + BASEDIR+"r2/ip-link.conf")
     r3.cmd("source " + BASEDIR+"r3/ip-link.conf")
-    vpp_1.cmd("source " + BASEDIR+"vpp_1/ip-link.conf")
-    vpp_2.cmd("source " + BASEDIR+"vpp_2/ip-link.conf")
     p4_1.cmd("source " + BASEDIR+"p4_1/ip-link.conf")
     p4_2.cmd("source " + BASEDIR+"p4_2/ip-link.conf")
-    vpp_3.cmd("source " + BASEDIR+"vpp_3/ip-link.conf")
 
 
 def add_nodes_to_etc_hosts():
@@ -218,7 +215,8 @@ def stopAll():
     # Clean Mininet emulation environment
     os.system('sudo mn -c')
     # Kill all the started daemons
-    os.system('sudo killall sshd zebra isisd simple_switch vpp')
+    os.system('sudo killall sshd zebra isisd simple_switch')
+    os.system('sudo kill $(pidof vpp)')
 
 def extractHostPid (dumpline):
     temp = dumpline[dumpline.find('pid=')+4:]
