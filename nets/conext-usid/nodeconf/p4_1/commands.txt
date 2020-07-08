@@ -26,13 +26,13 @@ table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:6::/32   
 table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:8:1::/48   => 8e:af:a4:9c:78:e0
 table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:8::/32     => 8e:af:a4:9c:78:e0
 
-table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0100::/48 => d2:8e:4f:23:63:59
-table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0200::/48 => d2:8e:4f:23:63:59
-table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0300::/48 => d2:8e:4f:23:63:59
-table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0400::/48 => 36:46:f5:ac:37:db
-table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0500::/48 => 36:46:f5:ac:37:db
-table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0600::/48 => 36:46:f5:ac:37:db
-table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0800::/48 => 8e:af:a4:9c:78:e0
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0100::/44 => d2:8e:4f:23:63:59
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0200::/44 => d2:8e:4f:23:63:59
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0300::/44 => d2:8e:4f:23:63:59
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0400::/44 => 36:46:f5:ac:37:db
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0500::/44 => 36:46:f5:ac:37:db
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0600::/44 => 36:46:f5:ac:37:db
+table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcbb:bbbb:0800::/44 => 8e:af:a4:9c:78:e0
 
 # table_add IngressPipeImpl.routing_v6 IngressPipeImpl.set_next_hop fcff:7::/32 LOOPBACK
 
