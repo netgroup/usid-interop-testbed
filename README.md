@@ -1,53 +1,27 @@
-# SRv6 tutorial
+# Micro SID interoperability testbed featuring Linux kernel, VPP and P4 dataplanes
 
-In the nets folder there are different projects:
+This repository hosts a testbed to test the features of Micro SID in an emulated network featuring Linux, VPP and P4 dataplanes. 
+
+## Repository structure
+
+The repo is structured as follows:
+
+- *install_bmv2/* contains the scripts to install bmv2, the P4 dataplane, and all its dependencies;
+- *install_vpp/* contains the scripts to install vpp and all its dependencies;
+- *nets/usid/* contains the a python script describing the mininet topology;
+- *nets/usid/nodeconf/* contains a folder for each mininet node with the configuration files needed to correctly setup the nodes.
+
+## Dependencies
+
+It is strongly recommended to download the already prepared VM, as described in https://netgroup.github.io/rose/rose-vm.html, as it has most of the dependencies installed. 
+
+After downloading the VM, it is possible to install VPP and P4 bmv2 as follows:
 
 ```
-- 3routers
-small IPv4 topology with OSPF / FRR
-
-- 8routers
-reference IPv6 topology with OSPFv3 / FRR
-
-- 8routers-isis-ipv6
-reference IPv6 topology with IS-IS / FRR
-
-- 8r-1c-out-band-isis
-reference IPv6 topology with IS-IS / FRR and out-of-band controller
-
-- 8r-1c-in-band-isis
-reference IPv6 topology with IS-IS / FRR and in-band controller
-
+  cd install_bmv2/
+  bash install.sh
+  cd ..
+  cd install_vpp/
+  bash install.sh
+  cd ..
 ```
-
-## Installation of FRRouting suite (FRR)
-
-You need to have FRR installed in order to run the mininet labs.
-Check if FRR is installed by running:
-```
-  
-  /usr/lib/frr/zebra -v
-```
-
-If FRR is not installed, follow these instructions (for Ubuntu/Debian): 
-
-1) wget https://deb.frrouting.org/frr/keys.asc
-
-2) sudo apt-key add keys.asc
-
-3) rm keys.asc
-
-4) run lsb_release -s -c
-
-5) Edit the sources.list file in the /etc/apt folder, adding the following line at the end:
-```
-
-deb https://deb.frrouting.org/frr <release> frr-stable	
-```
-replacing <release> with the output of lsb_release -s -c 
-
-6) sudo apt update
-
-7) sudo apt -y install frr frr-pythontools
-
-
