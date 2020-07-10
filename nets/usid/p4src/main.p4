@@ -79,10 +79,7 @@ control IngressPipeImpl (inout parsed_headers_t hdr,
         counters = routing_v6_counter;
     }
 
-    action end_action() {
-        // set destination IP address to next segment
-        hdr.ipv6.dst_addr = local_metadata.next_srv6_sid;
-    }
+    action end_action() { }
 
     action end_action_usid() {
         hdr.ipv6.dst_addr = (hdr.ipv6.dst_addr & USID_BLOCK_MASK) | ((hdr.ipv6.dst_addr << 16) & ~((bit<128>)USID_BLOCK_MASK));
@@ -112,9 +109,14 @@ control IngressPipeImpl (inout parsed_headers_t hdr,
                 end_action: {
                     // support for reduced SRH
                     if (hdr.srv6h.segment_left > 0) {
+                        // set destination IP address to next segment
+                        hdr.ipv6.dst_addr = local_metadata.next_srv6_sid;
                         // decrement segments left
                         hdr.srv6h.segment_left = hdr.srv6h.segment_left - 1;
-                    } 
+                    } else {
+                        // set destination IP address to next segment
+                        hdr.ipv6.dst_addr = hdr.srv6_list[0].segment_id;
+                    }
                 }
             }
 
