@@ -1167,7 +1167,7 @@
       "binding" : "IngressPipeImpl.my_sid_table",
       "source_info" : {
         "filename" : "main.p4",
-        "line" : 91,
+        "line" : 88,
         "column" : 50,
         "source_fragment" : "my_sid_table_counter"
       }
@@ -1425,27 +1425,7 @@
       "name" : "IngressPipeImpl.end_action",
       "id" : 8,
       "runtime_data" : [],
-      "primitives" : [
-        {
-          "op" : "assign",
-          "parameters" : [
-            {
-              "type" : "field",
-              "value" : ["ipv6", "dst_addr"]
-            },
-            {
-              "type" : "field",
-              "value" : ["scalars", "local_metadata_t.next_srv6_sid"]
-            }
-          ],
-          "source_info" : {
-            "filename" : "main.p4",
-            "line" : 84,
-            "column" : 8,
-            "source_fragment" : "hdr.ipv6.dst_addr = local_metadata.next_srv6_sid"
-          }
-        }
-      ]
+      "primitives" : []
     },
     {
       "name" : "IngressPipeImpl.end_action_usid",
@@ -1519,7 +1499,7 @@
           ],
           "source_info" : {
             "filename" : "main.p4",
-            "line" : 88,
+            "line" : 85,
             "column" : 8,
             "source_fragment" : "hdr.ipv6.dst_addr = (hdr.ipv6.dst_addr & (0xffffffff << 96)) | ((hdr.ipv6.dst_addr << 16) & ~((bit<128>)(0xffffffff << 96)))"
           }
@@ -1596,6 +1576,25 @@
           "parameters" : [
             {
               "type" : "field",
+              "value" : ["ipv6", "dst_addr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "local_metadata_t.next_srv6_sid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "main.p4",
+            "line" : 113,
+            "column" : 24,
+            "source_fragment" : "hdr.ipv6.dst_addr = local_metadata.next_srv6_sid"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
               "value" : ["srv6h", "segment_left"]
             },
             {
@@ -1628,9 +1627,35 @@
           ],
           "source_info" : {
             "filename" : "main.p4",
-            "line" : 116,
+            "line" : 115,
             "column" : 24,
             "source_fragment" : "hdr.srv6h.segment_left = hdr.srv6h.segment_left - 1"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "act_2",
+      "id" : 13,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["ipv6", "dst_addr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["srv6_list[0]", "segment_id"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "main.p4",
+            "line" : 118,
+            "column" : 24,
+            "source_fragment" : "hdr.ipv6.dst_addr = hdr.srv6_list[0].segment_id"
           }
         }
       ]
@@ -1653,7 +1678,7 @@
           "id" : 0,
           "source_info" : {
             "filename" : "main.p4",
-            "line" : 107,
+            "line" : 104,
             "column" : 9,
             "source_fragment" : "drop()"
           },
@@ -1765,7 +1790,7 @@
           "id" : 4,
           "source_info" : {
             "filename" : "main.p4",
-            "line" : 92,
+            "line" : 89,
             "column" : 10,
             "source_fragment" : "my_sid_table"
           },
@@ -1803,9 +1828,9 @@
           "id" : 5,
           "source_info" : {
             "filename" : "main.p4",
-            "line" : 116,
-            "column" : 47,
-            "source_fragment" : "="
+            "line" : 113,
+            "column" : 42,
+            "source_fragment" : "= local_metadata.next_srv6_sid; ..."
           },
           "key" : [],
           "match_type" : "exact",
@@ -1828,8 +1853,37 @@
           }
         },
         {
-          "name" : "IngressPipeImpl.routing_v6",
+          "name" : "tbl_act_2",
           "id" : 6,
+          "source_info" : {
+            "filename" : "main.p4",
+            "line" : 118,
+            "column" : 42,
+            "source_fragment" : "="
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [13],
+          "actions" : ["act_2"],
+          "base_default_next" : "IngressPipeImpl.routing_v6",
+          "next_tables" : {
+            "act_2" : "IngressPipeImpl.routing_v6"
+          },
+          "default_entry" : {
+            "action_id" : 13,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "IngressPipeImpl.routing_v6",
+          "id" : 7,
           "source_info" : {
             "filename" : "main.p4",
             "line" : 72,
@@ -1866,7 +1920,7 @@
         },
         {
           "name" : "IngressPipeImpl.unicast",
-          "id" : 7,
+          "id" : 8,
           "source_info" : {
             "filename" : "main.p4",
             "line" : 41,
@@ -1910,7 +1964,7 @@
           "id" : 0,
           "source_info" : {
             "filename" : "main.p4",
-            "line" : 106,
+            "line" : 103,
             "column" : 9,
             "source_fragment" : "hdr.ipv6.hop_limit == 0"
           },
@@ -1953,7 +2007,7 @@
           "id" : 2,
           "source_info" : {
             "filename" : "main.p4",
-            "line" : 114,
+            "line" : 111,
             "column" : 24,
             "source_fragment" : "hdr.srv6h.segment_left > 0"
           },
@@ -1972,7 +2026,7 @@
             }
           },
           "true_next" : "tbl_act_1",
-          "false_next" : "IngressPipeImpl.routing_v6"
+          "false_next" : "tbl_act_2"
         }
       ]
     },
@@ -1981,7 +2035,7 @@
       "id" : 1,
       "source_info" : {
         "filename" : "main.p4",
-        "line" : 129,
+        "line" : 131,
         "column" : 8,
         "source_fragment" : "EgressPipeImpl"
       },
