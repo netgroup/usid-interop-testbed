@@ -80,8 +80,6 @@ control IngressPipeImpl (inout parsed_headers_t hdr,
     }
 
     action end_action() {
-        // decrement segments left
-        hdr.srv6h.segment_left = hdr.srv6h.segment_left - 1;
         // set destination IP address to next segment
         hdr.ipv6.dst_addr = local_metadata.next_srv6_sid;
     }
@@ -110,7 +108,17 @@ control IngressPipeImpl (inout parsed_headers_t hdr,
 	    }
 
 	    if (l2_firewall.apply().hit) {
-            my_sid_table.apply();
+            switch(my_sid_table.apply().action_run) {
+                end_action: {
+                    // support for reduced SRH
+                    if (hdr.srv6h.segment_left > 0) {
+                        // decrement segments left
+                        hdr.srv6h.segment_left = hdr.srv6h.segment_left - 1;
+                    } 
+                }
+            }
+
+            
 	        routing_v6.apply();
 	    }
         
