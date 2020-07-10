@@ -53,9 +53,9 @@ controller-srv6-usid> policy --op add --lr-destination fd00:0:32::2 --rl-destina
 ```
 
 For a detailed description of the arguments, use the ``help`` command:
-``
+```
 controller-srv6-usid> help policy
-``
+```
 
 To exit from the CLI, you can use the ``exit`` command:
 ```
