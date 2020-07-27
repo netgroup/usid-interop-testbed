@@ -45,7 +45,7 @@ Then you can create a uSID policy with the following command:
 controller(srv6)> policy --op add --lr-destination fd00:0:32::2 --rl-destination fd00:0:11::2 --nodes 0100,0200,0300 --l-grpc-ip fcfd:0:0:1::1 --l-grpc-port 12345 --l-fwd-engine Linux --r-grpc-ip fcfd:0:0:3::1 --r-grpc-port 12345 --r-fwd-engine Linux --decap-sid f00d --locator fcbb:bbbb::
 ```
 
-The command requires the following arguments:
+The commands requires the following arguments:
 * *--op*,
       the operation to be performed (e.g. *add*, *get*, *change*, *del*).
 * *--lr-destination*,
