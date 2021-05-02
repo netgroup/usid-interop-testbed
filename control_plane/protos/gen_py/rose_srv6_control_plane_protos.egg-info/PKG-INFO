@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: rose-srv6-control-plane-protos
+Version: 0.0.1
+Summary: Proto files collection for control-plane modules
+Home-page: https://github.com/netgroup/rose-srv6-control-plane
+Author: Carmine Scarpitta
+Author-email: carmine.scarpitta@uniroma2.it
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: Linux
+Classifier: Programming Language :: Python
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown

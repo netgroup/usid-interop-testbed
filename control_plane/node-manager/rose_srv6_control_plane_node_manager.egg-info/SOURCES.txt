@@ -1,0 +1,15 @@
+MANIFEST.in
+README.md
+setup.py
+node_manager/__init__.py
+node_manager/node_mgr.py
+node_manager/pm_manager.py
+node_manager/srv6_manager.py
+node_manager/utils.py
+node_manager/config/node_manager.env
+rose_srv6_control_plane_node_manager.egg-info/PKG-INFO
+rose_srv6_control_plane_node_manager.egg-info/SOURCES.txt
+rose_srv6_control_plane_node_manager.egg-info/dependency_links.txt
+rose_srv6_control_plane_node_manager.egg-info/entry_points.txt
+rose_srv6_control_plane_node_manager.egg-info/requires.txt
+rose_srv6_control_plane_node_manager.egg-info/top_level.txt
