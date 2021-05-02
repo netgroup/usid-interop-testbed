@@ -40,14 +40,21 @@ To insert SID policies with the controller, enter the ``srv6`` subsection of the
 controller> srv6
 ```
 
+To load the YAML configuration that describes the nodes in the topology:
+
+```
+controller(srv6)> usid --nodes-file /path/to/nodes.yml
+controller(srv6-usid)>
+```
+
 Then you can create a uSID policy with the following command:
 ```
-controller(srv6)> usid_policy --op add --lr-destination fd00:0:32::2 --rl-destination fd00:0:11::2 --nodes 0100,0200,0300 --l-grpc-ip fcfd:0:0:1::1 --l-grpc-port 12345 --l-fwd-engine Linux --r-grpc-ip fcfd:0:0:3::1 --r-grpc-port 12345 --r-fwd-engine Linux --decap-sid f00d --locator fcbb:bbbb::
+controller(srv6-usid)> policy --op add --lr-destination fd00:0:32::2 --rl-destination fd00:0:11::2 --nodes 0100,0200,0300 --l-grpc-ip fcfd:0:0:1::1 --l-grpc-port 12345 --l-fwd-engine Linux --r-grpc-ip fcfd:0:0:3::1 --r-grpc-port 12345 --r-fwd-engine Linux --decap-sid f00d --locator fcbb:bbbb::
 ```
 
 You can also provide the ``--nodes-rev`` argument to create asymmetric paths (where the ):
 ```
-controller(srv6)> policy --op add --lr-destination fd00:0:32::2 --rl-destination fd00:0:11::2 --nodes 0100,0200,0300 --nodes-rev 0300,0700,0100 --l-grpc-ip fcfd:0:0:1::1 --l-grpc-port 12345 --l-fwd-engine Linux --r-grpc-ip fcfd:0:0:3::1 --r-grpc-port 12345 --r-fwd-engine Linux --decap-sid f00d --locator fcbb:bbbb::
+controller(srv6-usid)> policy --op add --lr-destination fd00:0:32::2 --rl-destination fd00:0:11::2 --nodes 0100,0200,0300 --nodes-rev 0300,0700,0100 --l-grpc-ip fcfd:0:0:1::1 --l-grpc-port 12345 --l-fwd-engine Linux --r-grpc-ip fcfd:0:0:3::1 --r-grpc-port 12345 --r-fwd-engine Linux --decap-sid f00d --locator fcbb:bbbb::
 ```
 
 The command above requires the following arguments:
@@ -80,17 +87,17 @@ The command above requires the following arguments:
 
 For a detailed description of the arguments, use the ``help`` command:
 ```
-controller(srv6)> help usid_policy
+controller(srv6-usid)> help policy
 ```
 
 The controller keeps track of the policy created on a database. You can use the following command to see the policy installed:
 ```
-controller(srv6)> usid_policy --op get
+controller(srv6-usid)> policy --op get
 ```
 
 For each policy, the ``get`` command will show an ID. The policy ID can be used to remove the policy:
 ```
-controller(srv6)> usid_policy --op del --id 1000
+controller(srv6-usid)> policy --op del --id 1000
 ```
 
 To exit from the CLI, you can use the ``exit`` command:
@@ -116,10 +123,66 @@ controller(topology)> load-nodes --nodes-file conext-testbed/nets/usid/nodeconf/
 
 After loading the configuration you can create a policy providing the node names instead of using the uN SID or the uSID identifier.
 ```
-controller(srv6)> usid_policy --op add --lr-destination fd00:0:32::2 --rl-destination fd00:0:11::2 --nodes r1,r2,r3
+controller(srv6-usid)> policy --op add --lr-destination fd00:0:32::2 --rl-destination fd00:0:11::2 --nodes r1,r2,r3
 ```
 
 You can also combine node names, uN SIDs and uSID identifiers in the nodes list:
 ```
-controller(srv6)> usid_policy --op add --lr-destination fd00:0:32::2 --rl-destination fd00:0:11::2 --nodes r1,0002,fcbb:bbbb:0003:: --r-grpc-ip fcfd:0:0:3::1 --r-grpc-port 12345 --r-fwd-engine Linux --decap-sid f00d --locator fcbb:bbbb::
+controller(srv6-usid)> policy --op add --lr-destination fd00:0:32::2 --rl-destination fd00:0:11::2 --nodes r1,0002,fcbb:bbbb:0003:: --r-grpc-ip fcfd:0:0:3::1 --r-grpc-port 12345 --r-fwd-engine Linux --decap-sid f00d --locator fcbb:bbbb::
 ```
+
+## Networks slices use case
+
+This use case showcases a real world service provisioning exapmple in which the uSID programmability framework is used to allocate via the SDN controller two network slices to support low latency and high throughput traffic.
+
+### Global controller configuration
+
+Start the mininet emulated network by issuing the following command in a new console:
+
+```
+rose@rose-vm> sudo python -E /path/to/usid-interop-testbed/nets/usid/net.py
+```
+
+As also shown in the previous section, we repeat here the commands to apply in the controller CLI to apply the global configuration for the current topology:
+
+In another terminal window, start the controller:
+
+```
+rose@rose-vm> bash /path/to/control-plane/controller/starter.sh
+```
+
+First, enter the *srv6* controller CLI section:
+
+```
+controller> srv6
+controller(srv6)> 
+```
+
+Then load the YAML configuration that describes the nodes in the topology. With this command the controller enters the uSID section.
+
+```
+controller(srv6)> usid --nodes-file /path/to/usid-interop-testbed/nets/usid/nodeconf/controller/nodes.yml
+controller(srv6-usid)>
+```
+
+Now we are ready to setup the uSID policies that configure the networks slices of this use case.
+
+### Low latency network slice
+
+The first policy is meant to create a low latency network slice for the traffic between *h11* and *h51*. To achieve this goal, traffic has to go through only low latency links. The candidate path for the low latency slice is __L1, L2, P7, V8, P6__ and __V5__. The command that specifies this policy is the following:
+
+```
+controller(srv6-usid)> policy --op add --lr-destination fd00:0:11::2 --rl-destination fd00:0:51::2 --nodes r2,p4_2,vpp_3,p4_1,vpp_2
+```
+
+### High Bandwidth network slice
+
+The second policy is meant to create a high bandwidth network slice for the traffic between *h12* and *h51*. Thus, traffic has to go through only high bandwidth links.
+The candidate path for the high bandwidth slice is __L1, L2, L3, V4__ and __V5__. In a similar way as the low latency slice, the command that specifies the high bandwidth policy is the following:
+
+
+```
+controller(srv6-usid)> policy --op add --lr-destination fd00:0:12::2 --rl-destination fd00:0:52::2 --nodes r2,r3,vpp_1,vpp_2
+```
+
+
